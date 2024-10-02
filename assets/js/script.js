@@ -20,7 +20,7 @@ function Car(color, model, brand, capacity, currentSpeed, maxSpeed) {
 
 const carPrototype = {
   accelerate: function (kmh) {
-    if (typeof kmh !== "number" || isNaN(kmh)) {
+    if (typeof kmh !== "number" || isNaN(kmh) || kmh < 0) {
       return null;
     }
 
