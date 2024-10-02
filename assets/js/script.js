@@ -41,6 +41,7 @@ const carPrototype = {
     return (this.currentSpeed = 0);
   },
 };
+
 Car.prototype = carPrototype;
 car.__proto__ = carPrototype;
 
