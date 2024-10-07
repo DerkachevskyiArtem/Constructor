@@ -5,23 +5,29 @@ const car = {
   model: "Land Cruiser Prado",
   brand: "Toyota",
   capacity: 5,
+  engineCapacity: 300,
   currentSpeed: 0,
   maxSpeed: 250,
 };
 
-function Car(color, model, brand, capacity, currentSpeed, maxSpeed) {
+function Car(color, model, brand, engineCapacity, capacity, maxSpeed) {
   this.color = color;
   this.model = model;
   this.brand = brand;
   this.capacity = capacity;
-  this.currentSpeed = currentSpeed;
+  this.engineCapacity = engineCapacity;
+  this.currentSpeed = 0;
   this.maxSpeed = maxSpeed;
 }
 
 const carPrototype = {
   accelerate: function (kmh) {
-    if (typeof kmh !== "number" || isNaN(kmh) || kmh < 0) {
-      return null;
+    if (typeof kmh !== "number" || isNaN(kmh)) {
+      throw new TypeError("kmh must be a number");
+    }
+
+    if (kmh < 0) {
+      throw new RangeError("kmh must not be negative");
     }
 
     return this.currentSpeed + kmh <= this.maxSpeed
@@ -29,8 +35,12 @@ const carPrototype = {
       : this.currentSpeed = this.maxSpeed;
   },
   deaccelerate: function (kmh) {
-    if (typeof kmh !== "number" || isNaN(kmh) || kmh < 0) {
-      return null;
+    if (typeof kmh !== "number" || isNaN(kmh)) {
+      throw new TypeError("kmh must be a number");
+    }
+
+    if (kmh < 0) {
+      throw new RangeError("kmh must not be negative");
     }
 
     return this.currentSpeed - kmh >= 0
@@ -42,9 +52,10 @@ const carPrototype = {
   },
 };
 
+
 Car.prototype = carPrototype;
 car.__proto__ = carPrototype;
 
-const volkswagen = new Car("green", "jetta", "volkswagen", 5, 0, 190);
+const volkswagen = new Car("green", "jetta", "volkswagen", 400, 5, 190);
 
-const skoda = new Car("blue", "injak", "skoda", 5, 0, 160);
+const skoda = new Car("blue", "injak", "skoda", 260, 5, 160);
